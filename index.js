@@ -1,14 +1,9 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const axios = require("axios");
-const util = require('util');
 const generateMarkdown = require("./utils/generateMarkdown")
 const api = require("./utils/api")
 
-const writeFileAsync = util.promisify(fs.writeFile)
-
-
-// Questions User Answers
+// User Questions
 function askQuestions() {
     return inquirer.prompt([{
             type: "input",
@@ -22,6 +17,11 @@ function askQuestions() {
         },
         {
             type: "input",
+            message: "What is URL of your project in GitHub?",
+            name: "url"
+        },
+        {
+            type: "input",
             message: "What is the title of your project?",
             name: "title"
         },
@@ -32,13 +32,13 @@ function askQuestions() {
         },
         {
             type: "input",
-            message: "Please a table of contents for your project.",
-            name: "tableofcontents"
+            message: "What packages need to be installed to run your project.",
+            name: "installation"
         },
         {
             type: "input",
-            message: "Please provide the steps required to install your project.",
-            name: "installation"
+            message: "What technologies were used to create your project.",
+            name: "technology"
         },
         {
             type: "input",
@@ -48,30 +48,43 @@ function askQuestions() {
         {
             type: "list",
             name: "license",
-            message: "What king of license would you like to have?",
+            message: "What kind of license would you like to have?",
             name: "license",
-            choices: ["MIT", "APACHE 2.0", "GPL 3.0", "BSD 3", "None"]
+            choices: ["MIT", "APACHE 2.0", "GPL v3", "BSD 3", "None"]
         },
         {
             type: "input",
             message: "Including yourself, please list out all contributors",
-            name: "contributing"
+            name: "contributer"
         },
         {
-            type: "list",
-            message: "Have you tested your project",
+            type: "input",
+            message: "What command is used to run a test",
             name: "tests",
-            choices: ["Yes", "No"]
+        }
+    ]);  
+}; 
 
-        }
-    ]); // end of return 
-}; // end of function 
-// write the answers to a new README file
-function writeFile(fileName, data) {
-    fs.writeFile(fileName, data, function (err) {
+
+// write answers to new README
+function writetoFile(fileName, data) {
+    fs.writeFile(fileName, data, "utf8", function (err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
-        console.log("successfully wrote README file");
+        console.log("You have successfully written your README file");
     });
-}
+};
+
+// write answers to new README
+async function init() {
+    try {
+        const answers = await askQuestions();
+        generateMarkdown(answers);
+        writetoFile("README.md", generateMarkdown(answers));
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+init();
