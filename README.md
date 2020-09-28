@@ -32,8 +32,6 @@
 
   ## Contact
   
-![Badge](https://img.shields.io/badge/Github-Joseph-D98-4cbbb9)
-  
 ![Profile Image](https://github.com/Joseph-D98.png?size=50)
   
 View the project in GitHub at: https://github.com/Joseph-D98/README-Generator
