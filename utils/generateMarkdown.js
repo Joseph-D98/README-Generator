@@ -19,6 +19,9 @@ function generateMarkdown(data) {
   ## Installation
   Packages required to run this program are: ${data.installation}
 
+  ## Technologies Used
+  ${data.technology}
+
   ## Usage
   Examples of how to use this program: ${data.usage}
 
