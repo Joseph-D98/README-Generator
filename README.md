@@ -3,7 +3,10 @@
 
   ## Description
     A command line application that dynamically generates a README.md file from the user's input. The user will be prompted with a series of questions about their project, including their gitHub username which is used with the gitHub API to retrieve email and avatar data. The application is employed using the command: node index.js
-    
+   
+  ## Demonstarion
+  ![GIF]()
+  
   ## Table of Contents
   -[Installation](#installation) 
   -[Usage](#usage) 
